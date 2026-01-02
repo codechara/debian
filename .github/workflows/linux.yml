@@ -1,6 +1,6 @@
 name: linux
 run-name: Linux packages
-on: [push, fork]
+#on: [push, fork]
 
 jobs:
   compile:
@@ -28,7 +28,7 @@ jobs:
       - name: Patch linux
         run: |
           cd linux
-          git apply $GITHUB_ACTION_PATH/debian/linux/patches/*
+          git apply ../debian/linux/patches/*
       
       - name: Build linux
         run: |
@@ -38,6 +38,6 @@ jobs:
           export SUBARCH=arm
           export CROSS_COMPILE=arm-linux-gnueabi-
           make imx_v7_defconfig
-          cat $GITHUB_ACTION_PATH/debian/linux/extra-config >> out/.config
+          cat ../debian/linux/extra-config >> out/.config
           make olddefconfig
           make -j$(nproc)
