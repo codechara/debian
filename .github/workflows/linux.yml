@@ -41,7 +41,7 @@ jobs:
       - name: Package linux
         run: |
           mkdir deb
-          cp debian/linux/DEBIAN deb/
+          cp -r debian/linux/DEBIAN deb/
           cd linux
           #make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../deb
           cd ..
