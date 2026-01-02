@@ -33,11 +33,7 @@ jobs:
       - name: Build linux
         run: |
           cd linux
-          export O=out
-          export ARCH=arm
-          export SUBARCH=arm
-          export CROSS_COMPILE=arm-linux-gnueabi-
-          make imx_v7_defconfig
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- imx_v7_defconfig
           cat ../debian/linux/extra-config >> out/.config
-          make olddefconfig
-          make -j$(nproc)
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- olddefconfig
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)
