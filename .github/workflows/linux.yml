@@ -43,7 +43,7 @@ jobs:
           mkdir deb
           cp -r debian/linux/DEBIAN deb/
           cd linux
-          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../deb
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../deb modules_install
           cd ..
           dpkg-deb --build ./deb linux.deb
 
