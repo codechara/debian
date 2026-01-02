@@ -30,20 +30,20 @@ jobs:
           cd linux
           git apply ../debian/linux/patches/*
       
-      #- name: Build linux
-      #  run: |
-      #    cd linux
-      #    make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- imx_v7_defconfig
-      #    cat ../debian/linux/extra-config >> out/.config
-      #    make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- olddefconfig
-      #    make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)
+      - name: Build linux
+        run: |
+          cd linux
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- imx_v7_defconfig
+          cat ../debian/linux/extra-config >> out/.config
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- olddefconfig
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)
 
       - name: Package linux
         run: |
           mkdir deb
           cp -r debian/linux/DEBIAN deb/
           cd linux
-          #make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../deb
+          make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../deb
           cd ..
           dpkg-deb --build ./deb linux.deb
 
