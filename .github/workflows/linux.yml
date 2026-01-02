@@ -14,14 +14,16 @@ jobs:
       
       - name: Checkout debian
         uses: actions/checkout@v4
-        repository: codechara/debian
-        path: debian
+        with:  
+          repository: codechara/debian
+          path: debian
       
       - name: Checkout linux-imx
         uses: actions/checkout@v4
-        repository: nxp-imx/linux-imx
-        ref: lf-6.6.52-2.2.2
-        path: linux
+        with:
+          repository: nxp-imx/linux-imx
+          ref: lf-6.6.52-2.2.2
+          path: linux
 
       - name: Patch linux
         run: |
