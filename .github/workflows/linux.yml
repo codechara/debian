@@ -1,6 +1,6 @@
 name: linux
 run-name: Linux packages
-#on: [push, fork]
+on: [push, fork]
 
 jobs:
   compile:
