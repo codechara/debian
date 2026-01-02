@@ -46,3 +46,10 @@ jobs:
           #make O=out ARCH=arm SUBARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../deb
           cd ..
           dpkg-deb --build ./deb linux.deb
+
+      - name: Artifact package
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux.deb
+          path: linux.deb
+          retention-days: 7  
