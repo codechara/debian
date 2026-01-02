@@ -27,6 +27,7 @@ jobs:
 
       - name: Patch linux
         run: |
+          tree
           cd linux-imx
           git apply $GITHUB_ACTION_PATH/debian/linux/patches/*
       
