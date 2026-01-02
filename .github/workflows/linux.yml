@@ -1,0 +1,41 @@
+name: linux
+run-name: Linux packages
+on: [push, fork]
+
+jobs:
+  compile:
+    name: Compile kernel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup build environment
+        run: |
+          sudo apt update
+          sudo apt install -y tree build-essential libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm bc gcc-arm-linux-gnueabi
+      
+      - name: Checkout debian
+        uses: actions/checkout@v4
+        repository: codechara/debian
+        path: debian
+      
+      - name: Checkout linux-imx
+        uses: actions/checkout@v4
+        repository: nxp-imx/linux-imx
+        ref: lf-6.6.52-2.2.2
+        path: linux
+
+      - name: Patch linux
+        run: |
+          cd linux-imx
+          git apply $GITHUB_ACTION_PATH/debian/linux/patches/*
+      
+      - name: Build linux
+        run: |
+          cd linux-imx
+          export O=out
+          export ARCH=arm
+          export SUBARCH=arm
+          export CROSS_COMPILE=arm-linux-gnueabi-
+          make imx_v7_defconfig
+          cat $GITHUB_ACTION_PATH/debian/linux/extra-config >> out/.config
+          make olddefconfig
+          make -j$(nproc)
