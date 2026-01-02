@@ -27,13 +27,11 @@ jobs:
 
       - name: Patch linux
         run: |
-          tree # debug
           cd linux
           git apply $GITHUB_ACTION_PATH/debian/linux/patches/*
       
       - name: Build linux
         run: |
-          tree # debug
           cd linux
           export O=out
           export ARCH=arm
